@@ -1,0 +1,22 @@
+version: "3"
+services:
+  app:
+    build: .
+    depends_on:
+      - postgr
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/src/app
+    links:
+      - postgr
+  postgr:
+    image: "postgres:12.1"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=docker
+  adminer:
+    image: adminer
+    ports:
+      - 8766:8080
